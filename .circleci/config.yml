@@ -1,19 +1,25 @@
 version: 2.1
 jobs:
   build:
+    working_directory: ~/hugo-test
     docker:
       - image: cibuilds/hugo:latest
 
     steps:
       - persist_to_workspace:
-          root: /tmp/workspace
-          path: public
+          root: .
+          paths: public
       - checkout
+      - attach_workspace:
+          at: ~/hugo-test
       - run: HUGO_ENV=production hugo
   pdf:
+    working_directory: ~/hugo-test
     docker:
       - image: dalibo/pandocker
     steps:
+      - attach_workspace:
+          at: ~/hugo-test
       - run: >
           cd content/posts
           ls $(ls -t *.md)
@@ -21,7 +27,7 @@ jobs:
           cat $(ls -t *.md) > full_site.md
           ls
           for i in *.md; do
-              $i -o /pdfs/${i//\.md/.pdf} \
+              $i -o public/pdfs/${i//\.md/.pdf} \
               --pdf-engine=xelatex \
               -V geometry:margin=1in \
               -V papersize:a4 \
