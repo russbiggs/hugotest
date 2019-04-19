@@ -27,11 +27,11 @@ jobs:
           cat $(ls -t *.md) > full_site.md
       - run: >
           for i in *.md; 
-            do \
-            $i -o public/pdfs/${i//\.md/.pdf} \
-            --pdf-engine=xelatex \
-            -V geometry:margin=1in \
-            -V papersize:a4 \
+            do
+            $i -o public/pdfs/${i//\.md/.pdf}
+            --pdf-engine=xelatex
+            -V geometry:margin=1in
+            -V papersize:a4
           done
   deploy:
     machine: true
