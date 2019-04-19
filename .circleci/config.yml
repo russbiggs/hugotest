@@ -33,10 +33,14 @@ jobs:
             pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf} --pdf-engine=xelatex -V geometry:margin=1in -V papersize:a4 
           done
   deploy:
+    working_directory: ~/hugo-test
     machine: true
+
     steps:
+      - attach_workspace:
+          at: ~/hugo-test
       - run: >
-          cd public
+          cd ~/hugo-test/public
           git init
           git config user.name "CircleCI"
           git config user.email "circleci@hotosm.org"
