@@ -1,0 +1,4 @@
+baseURL = "https://russbiggs.github.io/hugotest"
+languageCode = "en-us"
+title = "My New Hugo Site"
+theme = "ananke"

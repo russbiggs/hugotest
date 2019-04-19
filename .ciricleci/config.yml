@@ -1,0 +1,52 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:latest
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - echo-output
+      - run: HUGO_ENV=production hugo
+  pdf:
+    docker:
+      - image: dalibo/pandocker
+    steps:
+      - run: |
+        cd content/posts
+        ls $(ls -t *.md)
+        mkdir pdfs
+        cat $(ls -t *.md) > full_site.md
+        ls
+        for i in *.md; do
+            $i -o /pdfs/${i//\.md/.pdf} \
+            --pdf-engine=xelatex \
+            -V geometry:margin=1in \
+            -V papersize:a4 \
+            -V mainfont:Archivo-Regular
+        done
+        cp -r pdfs public/pdfs
+  deploy:
+    steps:
+      - run: |
+        cd public
+        git init
+        git config user.name "CircleCI"
+        git config user.email "circleci@hotosm.org"
+        git add .
+        git commit -m "CI deploy to gh-pages"
+        git push --force --quiet "https://${GH_TOKEN}@github.com/${CIRCLECI_REPO_SLUG}.git" master:gh-pages
+      
+workflows:
+  version: 2
+  build_and_pdf:
+    jobs:
+      - build
+      - pdf
+        requires:
+          - build
+      - deploy:
+          requires:
+            - pdf
