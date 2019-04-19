@@ -6,13 +6,13 @@ jobs:
       - image: cibuilds/hugo:latest
 
     steps:
+      - attach_workspace:
+          at: ~/hugo-test
+      - checkout
+      - run: HUGO_ENV=production hugo
       - persist_to_workspace:
           root: .
           paths: public
-      - checkout
-      - attach_workspace:
-          at: ~/hugo-test
-      - run: HUGO_ENV=production hugo
   pdf:
     working_directory: ~/hugo-test
     docker:
