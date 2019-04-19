@@ -33,6 +33,7 @@ jobs:
           done
   
   deploy:
+    working_directory: ~/hugo-test
     docker:
       - image: node:8.10.0
     steps:
