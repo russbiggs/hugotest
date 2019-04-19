@@ -30,7 +30,7 @@ jobs:
           cd content/posts &&
           for i in *.md; 
             do
-            pandoc $i -o public/pdfs/${i//\.md/.pdf}
+            pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf}
             --pdf-engine=xelatex
             -V geometry:margin=1in
             -V papersize:a4
