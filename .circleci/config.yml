@@ -23,9 +23,10 @@ jobs:
           at: ~/hugo-test
       - run: >
           cd content/posts &&
-          mkdir pdfs &&
+          
           cat $(ls -t *.md) > full_site.md
       - run: >
+          mkdir pdfs &&
           cd content/posts &&
           for i in *.md; 
             do
