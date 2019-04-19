@@ -21,9 +21,9 @@ jobs:
       - attach_workspace:
           at: ~/hugo-test
       - run: >
-          cd content/posts 
-          mkdir pdfs \
-          cat $(ls -t *.md) > full_site.md \
+          cd content/posts &&
+          mkdir pdfs &&
+          cat $(ls -t *.md) > full_site.md &&
           for i in *.md; 
             do \
             $i -o public/pdfs/${i//\.md/.pdf} \
