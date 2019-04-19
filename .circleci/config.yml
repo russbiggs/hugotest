@@ -30,7 +30,7 @@ jobs:
             --pdf-engine=xelatex \
             -V geometry:margin=1in \
             -V papersize:a4 \
-          done
+          done &&
           cp -r pdfs public/pdfs
   deploy:
     machine: true
