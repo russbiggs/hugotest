@@ -23,7 +23,6 @@ jobs:
           at: ~/hugo-test
       - run: >
           cd content/posts &&
-          
           cat $(ls -t *.md) > full_site.md
       - run: >
           mkdir ~/hugo-test/public/pdfs &&
@@ -37,16 +36,19 @@ jobs:
     machine: true
 
     steps:
+      - add_ssh_keys:
+        fingerprints:
+          - "ee:f7:34:c0:f9:55:c5:de:1e:d4:8c:75:cf:d1:5c:0a"
       - attach_workspace:
           at: ~/hugo-test
       - run: >
           cd ~/hugo-test/public
           git init
-          git config user.name "CircleCI"
-          git config user.email "circleci@hotosm.org"
+          git config user.name "Russ Biggs"
+          git config user.email "russbiggs@gmail.com"
           git add .
           git commit -m "CI deploy to gh-pages"
-          git push --force --quiet "https://${GH_TOKEN}@github.com/${CIRCLECI_REPO_SLUG}.git" master:gh-pages
+          git push --force --quiet "https://github.com/russbiggs/{CIRCLECI_REPO_SLUG}.git" master:gh-pages
       
 workflows:
   version: 2
