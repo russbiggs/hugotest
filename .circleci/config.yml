@@ -26,12 +26,11 @@ jobs:
           mkdir pdfs
           cat $(ls -t *.md) > full_site.md
           ls
-          for i in *.md; do
+          for i in *.md; do \
               $i -o public/pdfs/${i//\.md/.pdf} \
               --pdf-engine=xelatex \
               -V geometry:margin=1in \
               -V papersize:a4 \
-              -V mainfont:Archivo-Regular
           done
           cp -r pdfs public/pdfs
   deploy:
