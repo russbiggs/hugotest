@@ -26,7 +26,7 @@ jobs:
           
           cat $(ls -t *.md) > full_site.md
       - run: >
-          mkdir pdfs &&
+          mkdir ~/hugo-test/pdfs &&
           cd content/posts &&
           for i in *.md; 
             do
