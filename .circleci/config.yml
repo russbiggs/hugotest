@@ -32,7 +32,7 @@ jobs:
             pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf} --pdf-engine=xelatex -V geometry:margin=1in -V papersize:a4 
           done
   
-  docs-deploy:
+  deploy:
     docker:
       - image: node:8.10.0
     steps:
@@ -55,12 +55,22 @@ jobs:
 
 workflows:
   version: 2
+
   build_and_pdf:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: master
       - pdf:
           requires:
           - build
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - pdf
+          filters:
+            branches:
+              only: master
