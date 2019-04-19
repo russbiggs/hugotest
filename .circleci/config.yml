@@ -14,12 +14,14 @@ jobs:
           root: .
           paths: public
   pdf:
+
     working_directory: ~/hugo-test
     docker:
       - image: dalibo/pandocker
     steps:
       - attach_workspace:
           at: ~/hugo-test
+      - checkout
       - run: >
           ls &&
           cd content/posts &&
