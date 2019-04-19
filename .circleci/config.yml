@@ -29,6 +29,7 @@ jobs:
           done
           cp -r pdfs public/pdfs
   deploy:
+    machine: true
     steps:
       - run: >
           cd public
