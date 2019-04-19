@@ -44,7 +44,7 @@ workflows:
   build_and_pdf:
     jobs:
       - build
-      - pdf
+      - pdf:
           requires:
           - build
       - deploy:
