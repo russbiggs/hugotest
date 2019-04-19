@@ -23,7 +23,8 @@ jobs:
       - run: >
           cd content/posts &&
           mkdir pdfs &&
-          cat $(ls -t *.md) > full_site.md &&
+          cat $(ls -t *.md) > full_site.md
+      - run: >
           for i in *.md; 
             do \
             $i -o public/pdfs/${i//\.md/.pdf} \
