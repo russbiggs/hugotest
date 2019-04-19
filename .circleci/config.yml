@@ -31,25 +31,28 @@ jobs:
             do
             pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf} --pdf-engine=xelatex -V geometry:margin=1in -V papersize:a4 
           done
-  deploy:
-    working_directory: ~/hugo-test
-    machine: true
-
+  
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/hugo-test/public
+      - run: touch ~/hugo-test/public/.nojekyll
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "russbiggs@gmail.com"
+            git config user.name "ci-build"
       - add_ssh_keys:
           fingerprints:
             - "ee:f7:34:c0:f9:55:c5:de:1e:d4:8c:75:cf:d1:5c:0a"
-      - attach_workspace:
-          at: ~/hugo-test
-      - run: >
-          cd ~/hugo-test/public
-          git init
-          git config user.name "Russ Biggs"
-          git config user.email "russbiggs@gmail.com"
-          git add .
-          git commit -m "CI deploy to gh-pages"
-          git push --force --quiet "https://github.com/russbiggs/{CIRCLECI_REPO_SLUG}.git" master:gh-pages
-      
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist ~/hugo-test/public
+
 workflows:
   version: 2
   build_and_pdf:
