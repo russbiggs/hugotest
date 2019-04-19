@@ -6,7 +6,7 @@ jobs:
 
     steps:
       - persist_to_workspace:
-          root: /root/public
+          root: ~/public
           path: .
       - checkout
       - run: HUGO_ENV=production hugo
