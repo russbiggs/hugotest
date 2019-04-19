@@ -39,7 +39,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/hugo-test/public
+          at: .
       - run: touch ~/hugo-test/public/.nojekyll
       - run:
           name: Install and configure dependencies
