@@ -6,8 +6,8 @@ jobs:
 
     steps:
       - persist_to_workspace:
-          root: ~/public
-          path: .
+          root: /tmp/workspace
+          path: public
       - checkout
       - run: HUGO_ENV=production hugo
   pdf:
