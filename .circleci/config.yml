@@ -14,7 +14,7 @@ jobs:
     docker:
       - image: dalibo/pandocker
     steps:
-      - run: |
+      - run: 
         cd content/posts
         ls $(ls -t *.md)
         mkdir pdfs
@@ -30,7 +30,7 @@ jobs:
         cp -r pdfs public/pdfs
   deploy:
     steps:
-      - run: |
+      - run:
         cd public
         git init
         git config user.name "CircleCI"
