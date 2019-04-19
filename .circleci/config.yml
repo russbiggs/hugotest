@@ -5,18 +5,15 @@ jobs:
       - image: cibuilds/hugo:latest
 
     steps:
-      - checkout
       - persist_to_workspace:
         root: /root/public
         path: .
+      - checkout
       - run: HUGO_ENV=production hugo
   pdf:
     docker:
       - image: dalibo/pandocker
     steps:
-      - persist_to_workspace:
-        root: /root/public
-        path: .
       - run: >
           cd content/posts
           ls $(ls -t *.md)
