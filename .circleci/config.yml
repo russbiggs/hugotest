@@ -32,7 +32,9 @@ jobs:
           done
       - persist_to_workspace:
           root: .
-          paths: public
+          paths: 
+            - public
+            - content
   
   deploy:
     working_directory: ~/hugo-test
