@@ -21,6 +21,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/hugo-test
+      - run:
+          wget https://fonts.google.com/download?family=Archivo -O ~/archivo.zip && unzip ~/archivo.zip -d ~/.fonts
       - run: >
           cd content/posts &&
           cat $(ls -t *.md) > full_site.md
@@ -29,7 +31,7 @@ jobs:
           cd content/posts &&
           for i in *.md; 
             do
-            pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf} --pdf-engine=xelatex -V geometry:margin=1in -V papersize:a4 
+            pandoc $i -o ~/hugo-test/public/pdfs/${i//\.md/.pdf} --pdf-engine=xelatex -V geometry:margin=1in -V papersize:a4 -V mainfont:Archivo-Regular 
           done
       - persist_to_workspace:
           root: .
