@@ -52,7 +52,7 @@ jobs:
             - "ee:f7:34:c0:f9:55:c5:de:1e:d4:8c:75:cf:d1:5c:0a"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist /root/hugo-test/public
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist public
 
 workflows:
   version: 2
