@@ -12,7 +12,9 @@ jobs:
       - run: HUGO_ENV=production hugo
       - persist_to_workspace:
           root: .
-          paths: public
+          paths: 
+            - public
+            - content
   pdf:
     working_directory: ~/hugo-test
     docker:
@@ -34,7 +36,6 @@ jobs:
           root: .
           paths: 
             - public
-            - content
   
   deploy:
     working_directory: ~/hugo-test
